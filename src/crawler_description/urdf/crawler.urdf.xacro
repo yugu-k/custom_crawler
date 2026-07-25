@@ -1,0 +1,275 @@
+<?xml version="1.0"?>
+<robot name="crawler" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find crawler_description)/urdf/crawler_gazebo.xacro" /> 
+
+    <material name="body_grey">
+    <color rgba="0.35 0.35 0.38 1.0"/>
+  </material>
+  <material name="wheel_black">
+    <color rgba="0.08 0.08 0.08 1.0"/>
+  </material>
+  <material name="sensor_dark">
+    <color rgba="0.1 0.1 0.1 1.0"/>
+  </material>
+  <material name="probe_orange">
+    <color rgba="0.9 0.45 0.05 1.0"/>
+  </material>
+
+  
+  <xacro:property name="wheel_radius" value="0.060"/>   
+  <xacro:property name="wheel_width"  value="0.030"/>   
+  <xacro:property name="body_x" value="0.420"/>
+  <xacro:property name="body_y" value="0.320"/>
+  <xacro:property name="body_z" value="0.075"/>
+
+ 
+  <link name="base_footprint"/> 
+
+  
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 -0.005" rpy="-1.57 0 0"/>
+      <geometry>
+        <mesh filename="package://crawler_description/meshes/body.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="body_grey"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.005" rpy="0 0 0"/>
+      <geometry>
+        <box size="${body_x} ${body_y} ${body_z}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="6.0"/>
+      <origin xyz="0 0 0.005" rpy="0 0 0"/>
+      <inertia ixx="0.06" ixy="0.0" ixz="0.0" iyy="0.10" iyz="0.0" izz="0.14"/>
+    </inertial>
+  </link>
+
+  
+  <link name="front_right_wheel_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://crawler_description/meshes/wheel.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="wheel_black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.8"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.0009" ixy="0.0" ixz="0.0" iyy="0.0009" iyz="0.0" izz="0.0014"/>
+    </inertial>
+  </link>
+
+  <link name="front_left_wheel_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://crawler_description/meshes/wheel.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="wheel_black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.8"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.0009" ixy="0.0" ixz="0.0" iyy="0.0009" iyz="0.0" izz="0.0014"/>
+    </inertial>
+  </link>
+
+  <link name="rear_right_wheel_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://crawler_description/meshes/wheel.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="wheel_black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.8"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.0009" ixy="0.0" ixz="0.0" iyy="0.0009" iyz="0.0" izz="0.0014"/>
+    </inertial>
+  </link>
+
+  <link name="rear_left_wheel_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://crawler_description/meshes/wheel.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="wheel_black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.8"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.0009" ixy="0.0" ixz="0.0" iyy="0.0009" iyz="0.0" izz="0.0014"/>
+    </inertial>
+  </link>
+
+  
+  <link name="camera_front_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://crawler_description/meshes/camera.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="sensor_dark"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.090 0.025 0.028"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.072"/>
+      <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00003" iyz="0.0" izz="0.00003"/>
+    </inertial>
+  </link>
+
+  
+  <link name="camera_back_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://crawler_description/meshes/camera.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="sensor_dark"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.090 0.025 0.028"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.072"/>
+      <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00003" iyz="0.0" izz="0.00003"/>
+    </inertial>
+  </link>
+
+  
+  <link name="lidar_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://crawler_description/meshes/lidar.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="sensor_dark"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.0556 0.0413 0.0648"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.030"/>
+      <inertia ixx="0.000005" ixy="0.0" ixz="0.0" iyy="0.000005" iyz="0.0" izz="0.000005"/>
+    </inertial>
+  </link>
+
+  
+  <link name="probe_holder_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://crawler_description/meshes/probe.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="probe_orange"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.104 0.071 0.0845"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.150"/>
+      <inertia ixx="0.00003" ixy="0.0" ixz="0.0" iyy="0.00004" iyz="0.0" izz="0.00004"/>
+    </inertial>
+  </link>
+
+  
+  <joint name="base_footprint_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 ${wheel_radius}" rpy="0 0 0"/>
+  </joint> 
+  
+  <joint name="front_right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="front_right_wheel_link"/>
+    <origin xyz="0.122 0.165 -0.015" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.2" friction="0.1"/>
+  </joint>
+
+  <joint name="front_left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="front_left_wheel_link"/>
+    <origin xyz="0.122 -0.195 -0.015" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.2" friction="0.1"/>
+  </joint>
+
+  <joint name="rear_right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="rear_right_wheel_link"/>
+    <origin xyz="-0.122 0.165 -0.015" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.2" friction="0.1"/>
+  </joint>
+
+  <joint name="rear_left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="rear_left_wheel_link"/>
+    <origin xyz="-0.122 -0.195 -0.015" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.2" friction="0.1"/>
+  </joint>
+
+  <joint name="camera_front_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_front_link"/>
+    <origin xyz="0.210 0.0514 0.01" rpy="1.57 0 1.57"/>
+  </joint>
+
+  <joint name="camera_back_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_back_link"/>
+    <origin xyz="-0.210 0.0513 0.01" rpy="-1.57 0 1.57"/>
+  </joint>
+
+  <joint name="lidar_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidar_link"/>
+    <origin xyz="0.173 0.0 0.035" rpy="1.57 0 0"/>
+  </joint>
+
+  <joint name="probe_holder_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="probe_holder_link"/>
+    <origin xyz="0.27 -0.0595 0.02" rpy="-1.57 0 1.57"/>
+  </joint>
+
+</robot>
