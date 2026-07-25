@@ -136,6 +136,7 @@
   
   <link name="camera_front_link">
     <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 1.57"/>
       <geometry>
         <mesh filename="package://crawler_description/meshes/camera.stl" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -152,9 +153,9 @@
     </inertial>
   </link>
 
-  
-  <link name="camera_back_link">
+<link name="camera_back_link">
     <visual>
+      <origin xyz="0 0 0" rpy="-1.57 0 1.57"/>
       <geometry>
         <mesh filename="package://crawler_description/meshes/camera.stl" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -169,7 +170,7 @@
       <mass value="0.072"/>
       <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00003" iyz="0.0" izz="0.00003"/>
     </inertial>
-  </link>
+</link>
 
   
   <link name="lidar_link">
@@ -251,13 +252,13 @@
   <joint name="camera_front_joint" type="fixed">
     <parent link="base_link"/>
     <child link="camera_front_link"/>
-    <origin xyz="0.210 0.0514 0.01" rpy="1.57 0 1.57"/>
+    <origin xyz="0.210 0.0514 0.01" rpy="0 0 0"/>
   </joint>
 
   <joint name="camera_back_joint" type="fixed">
     <parent link="base_link"/>
     <child link="camera_back_link"/>
-    <origin xyz="-0.210 0.0513 0.01" rpy="-1.57 0 1.57"/>
+    <origin xyz="-0.210 0.0513 0.01" rpy="0 0 3.14"/>
   </joint>
 
   <joint name="lidar_joint" type="fixed">
