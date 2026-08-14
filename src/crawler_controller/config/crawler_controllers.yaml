@@ -9,6 +9,9 @@ controller_manager:
     simple_velocity_controller:
       type: velocity_controllers/JointGroupVelocityController
 
+    crawler_controller:
+      type: diff_drive_controller/DiffDriveController
+
 simple_velocity_controller:
   ros__parameters:
     joints:
@@ -16,3 +19,45 @@ simple_velocity_controller:
       - front_left_wheel_joint
       - rear_right_wheel_joint
       - rear_left_wheel_joint
+
+crawler_controller:
+  ros__parameters: true
+    type: diff_drive_controller/DiffDriveController
+    use_stamped_vel: true
+    left_wheel_names: ['front_left_wheel_joint', 'rear_left_wheel_joint']
+    right_wheel_names: ['front_right_wheel_joint','rear_right_wheel_joint']
+    publish_rate: 50.0
+    pose_covariance_diagonal: [0.001, 0.001, 1.0e-3, 1.0e-3, 1.0e-3, 0.01]
+    twist_covariance_diagonal: [0.001, 0.001, 1.0e-3, 1.0e-3, 1.0e-3, 0.01]
+
+    wheel_radius: 0.060
+    wheel_separation: 0.330
+    left_wheel_radius_multiplier: 1.0
+    right_wheel_radius_multiplier: 1.0
+    wheel_separation_multiplier: 1.0
+
+    cmd_vel_timeout: 0.25
+    base_frame_id: base_footprint
+    publish_limited_velocity: true
+    publish_wheel_data: true
+    enable_odom_tf: true
+
+    linear: 
+      x: 
+        has_velocity_limits: true
+        max_velocity: 1.0
+        min_velocity: -0.5
+        has_acceleration_limits: true
+        max_acceleration: 0.8
+        min_acceleration: -0.4
+        has_jerk_limit: false
+
+    angular:
+      z:
+        has_velocity_limits: true
+        max_velocity: 2.0
+        min_velocity: -1.5
+        has_acceleration_limits: true
+        max_acceleration: 1.5
+        min_acceleration: -1.5
+        has_jerk_limit: false
